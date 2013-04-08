@@ -32,23 +32,25 @@ class Wirebox extends WireData implements Module {
 	
 	public function wirebox($event) {
 		$page = $event->object;
-		$out = "
-		<link type='text/css' href='{$this->config->urls->Wirebox}Wirebox.css' rel='stylesheet' />
-		<script type='text/javascript' src='{$this->config->urls->Wirebox}Wirebox.js'></script>
-		<script>
-			$(document).ready(function() {
-				$('a.InputfieldFileLink > img').each(function() {
-					$(this).parent('a').attr('title', $(this).attr('alt')); 
-			  	});
-				$('a.InputfieldFileLink').wirebox();
-				$('.InputfieldImage .InputfieldFileList').live('AjaxUploadDone', function() {
-					$('a.InputfieldFileLink', $(this)).wirebox(); 
+		if($page->template == 'admin') {
+			$out = "
+			<link type='text/css' href='{$this->config->urls->Wirebox}Wirebox.css' rel='stylesheet' />
+			<script type='text/javascript' src='{$this->config->urls->Wirebox}Wirebox.js'></script>
+			<script>
+				$(document).ready(function() {
+					$('a.InputfieldFileLink > img').each(function() {
+						$(this).parent('a').attr('title', $(this).attr('alt')); 
+					});
+					$('a.InputfieldFileLink').wirebox();
+					$('.InputfieldImage .InputfieldFileList').live('AjaxUploadDone', function() {
+						$('a.InputfieldFileLink', $(this)).wirebox(); 
+					});
 				});
-			});
-		</script>
-		</head>
-		";
-		$event->return = str_ireplace('</head>', $out, $event->return);
+			</script>
+			</head>
+			";
+			$event->return = str_ireplace('</head>', $out, $event->return);
+		}
 	}
 
 }
