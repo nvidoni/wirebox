@@ -2,7 +2,7 @@
 
 Responsive lightbox for image galleries (Fancybox alternative)
 
-![My image](nvidoni.github.com/wirebox/screenshot.jpg)
+![Wirebox window in action](https://raw.github.com/nvidoni/wirebox/master/screenshot.jpg)
 
 ## How to install
 
