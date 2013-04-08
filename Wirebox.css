@@ -1,0 +1,108 @@
+body{
+	margin: 0;
+	padding: 0;
+}
+#wireboxOverlay {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	margin :0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	z-index: 1000;
+}
+#wireboxContent {
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin: -300px 0 0 -400px;
+	width: 800px;
+	height: 600px;
+	z-index: 1001;
+}
+#wireboxLeft {
+	float: left;
+	background-image: url(images/left.png);
+	background-position: 12%;
+	left: -14%;
+}
+#wireboxRight {
+	float: right;
+	background-image: url(images/right.png);
+	background-position: 88%;
+	left: 14%;
+}
+.wireboxArrows {
+	display: none;
+	position: relative;
+	top: -100%;
+	margin: -30px 0 0 0;
+	width: 49%;
+	height: 100%;
+	cursor:pointer;
+	background-repeat: no-repeat;
+}
+#wireboxContainer {
+	position: relative;
+	width: 800px;
+	height: 600px;
+	text-align: center;
+}
+#wireboxLoading {
+	display: none;
+	position: absolute;
+	left: 50%;
+    top: 50%;
+	margin: -16px 0 0 -16px;
+	width: 32px;
+	height: 32px;
+	background: url(images/loading.gif) no-repeat;
+	cursor: pointer;
+	z-index: 1002;
+}
+#wirboxImage {
+	display: none;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	margin:-5px 0 0 0;
+}
+#wireboxDescription {
+	position: relative;
+	margin: 10px 0 0 0;
+	padding: 0;
+	width: 100%;
+	height: 26px;
+	font: 12px Arial, Helvetica, sans-serif;
+	color: #fff;
+	overflow: hidden;
+	visibility: hidden;
+	clear: both;
+}
+#wireboxTitle {
+	float: left;
+}
+#wireboxCounter {
+	float: right;
+}
+#wireboxCounter a {
+	color: #fff;
+}
+#wireboxCounter a:hover {
+	color: #ccc;
+}
+#wireboxClose {
+	display: none;
+	position: absolute;
+	top: -26px;
+	right: 0;
+	width: 11px;
+	height: 11px;
+	background: url(images/close.png) no-repeat;
+	cursor: pointer;
+	z-index: 1002;
+}

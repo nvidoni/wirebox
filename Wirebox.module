@@ -1,0 +1,54 @@
+<?php
+
+/**
+ * jQuery Wirebox
+ *
+ * Responsive lightbox for image galleries (Fancybox alternative)
+ *
+ * Author 2013 Nikola Vidoni
+ *
+ * ProcessWire 2.x 
+ * Copyright (C) 2013 by Ryan Cramer 
+ * Licensed under GNU/GPL v2, see LICENSE.TXT
+ * 
+ * http://processwire.com
+ *
+ */
+
+class Wirebox extends WireData implements Module {
+
+	public static function getModuleInfo() {
+		return array(
+			'title' => 'Wirebox',
+			'version' => 100,
+			'summary' => __('Responsive lightbox for image galleries (Fancybox alternative)', __FILE__), 
+			'autoload' => true
+		);
+	}
+
+    public function init() {
+		$this->addHookAfter('Page::render', $this, 'wirebox');
+    }
+	
+	public function wirebox($event) {
+		$page = $event->object;
+		$out = "
+		<link type='text/css' href='{$this->config->urls->Wirebox}Wirebox.css' rel='stylesheet' />
+		<script type='text/javascript' src='{$this->config->urls->Wirebox}Wirebox.js'></script>
+		<script>
+			$(document).ready(function() {
+				$('a.InputfieldFileLink > img').each(function() {
+					$(this).parent('a').attr('title', $(this).attr('alt')); 
+			  	});
+				$('a.InputfieldFileLink').wirebox();
+				$('.InputfieldImage .InputfieldFileList').live('AjaxUploadDone', function() {
+					$('a.InputfieldFileLink', $(this)).wirebox(); 
+				});
+			});
+		</script>
+		</head>
+		";
+		$event->return = str_ireplace('</head>', $out, $event->return);
+	}
+
+}
