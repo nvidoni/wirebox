@@ -2,6 +2,8 @@
 
 Responsive lightbox for image galleries (Fancybox alternative)
 
+![My image](nvidoni.github.com/wirebox/screenshot.jpg)
+
 ## How to install
 
 - Copy all files from the ZIP archive to your /site/modules/wirebox/ directory.
