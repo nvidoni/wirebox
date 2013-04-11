@@ -7,6 +7,8 @@
  *
  * Author 2013 Nikola Vidoni
  *
+ * Version 1.0.5
+ *
  * ProcessWire 2.x 
  * Copyright (C) 2013 by Ryan Cramer 
  * Licensed under GNU/GPL v2, see LICENSE.TXT
@@ -15,35 +17,69 @@
  *
  */
 
-class Wirebox extends WireData implements Module {
+class Wirebox extends WireData implements Module, ConfigurableModule {
 
 	public static function getModuleInfo() {
 		return array(
 			'title' => 'Wirebox',
-			'version' => 100,
+			'version' => 105,
 			'summary' => __('Responsive lightbox for image galleries (Fancybox alternative)', __FILE__), 
 			'autoload' => true
 		);
 	}
 
-    public function init() {
+    public function init() {	 
 		$this->addHookAfter('Page::render', $this, 'wirebox');
     }
+	
+	static public function getDefaultData() {
+	   return array(
+			'overlayOpacity' => 0.9,
+			'overlayColor' => '#000',
+			'overlayClose' => 1,
+			'fadeInOverlayduration' => 150,
+			'fadeOutOverlayduration' => 300,
+			'fadeInImageduration' => 150,
+			'fadeOutImageduration' => 150,
+			'name' => 'Image ',
+			'separator' => ' / '
+		);
+	}
+	
+	public function __construct() {
+	   foreach(self::getDefaultData() as $key => $value) {
+		   $this->$key = $value;
+	   }
+	}
 	
 	public function wirebox($event) {
 		$page = $event->object;
 		if($page->template == 'admin') {
+			$overlayClose = $this->overlayClose ? 'true' : 'false';
 			$out = "
 			<link type='text/css' href='{$this->config->urls->Wirebox}Wirebox.css' rel='stylesheet' />
 			<script type='text/javascript' src='{$this->config->urls->Wirebox}Wirebox.js'></script>
 			<script>
+				if (typeof WireboxInput == 'undefined') {
+					var WireboxInput = {
+						'overlayOpacity': '$this->overlayOpacity',
+						'overlayColor': '$this->overlayColor',
+						'overlayClose': $overlayClose,
+						'fadeInOverlayduration': '$this->fadeInOverlayduration',
+						'fadeOutOverlayduration': '$this->fadeOutOverlayduration',
+						'fadeInImageduration': '$this->fadeInImageduration',
+						'fadeOutImageduration': '$this->fadeOutImageduration',
+						'prefix': '$this->prefix',
+						'separator': '$this->separator'
+					}
+				}
 				$(document).ready(function() {
 					$('a.InputfieldFileLink > img').each(function() {
 						$(this).parent('a').attr('title', $(this).attr('alt')); 
 					});
-					$('a.InputfieldFileLink').wirebox();
+					$('a.InputfieldFileLink').unbind('click.fb').wirebox();
 					$('.InputfieldImage .InputfieldFileList').live('AjaxUploadDone', function() {
-						$('a.InputfieldFileLink', $(this)).wirebox(); 
+						$('a.InputfieldFileLink', $(this)).unbind('click.fb').wirebox(); 
 					});
 				});
 			</script>
@@ -51,6 +87,81 @@ class Wirebox extends WireData implements Module {
 			";
 			$event->return = str_ireplace('</head>', $out, $event->return);
 		}
+	}
+	
+	static public function getModuleConfigInputfields(array $data) {
+
+		$fields = new InputfieldWrapper();
+
+		$modules = wire('modules');
+		
+		$data = array_merge(self::getDefaultData(), $data);
+		
+		$field = $modules->get("InputfieldText");
+		$field->name = "overlayOpacity";
+		$field->label = "Overlay Opacity";
+		$field->value = $data['overlayOpacity']; 
+		$field->description = "Opacity of the overlay (from 0 to 1; default = 0.9)";
+		$fields->add($field);
+		
+		$field = $modules->get("InputfieldText");
+		$field->name = "overlayColor";
+		$field->label = "Overlay Color";
+		$field->value = $data['overlayColor'];
+		$field->description = "Color of the overlay";
+		$fields->add($field);
+		
+		$field = $modules->get('InputfieldCheckbox'); 
+		$field->name = "overlayClose";
+		$field->label = 'Overlay Close'; 
+		$field->value = 1;
+		$field->attr('checked', empty($data['overlayClose']) ? '' : 'checked');
+		$field->description = 'Toggle if clicking the overlay should close Wirebox';
+		$fields->add($field);
+		
+		$field = $modules->get("InputfieldText");
+		$field->name = "fadeInOverlayduration";
+		$field->label = "Overlay FadeIn Speed";
+		$field->value = $data['fadeInOverlayduration']; 
+		$field->description = "Speed of overlay fadeIn effect, in milliseconds";
+		$fields->add($field);
+		
+		$field = $modules->get("InputfieldText");
+		$field->name = "fadeOutOverlayduration";
+		$field->label = "Overlay FadeOut Speed";
+		$field->value = $data['fadeOutOverlayduration']; 
+		$field->description = "Speed of overlay fadeOut effect, in milliseconds";
+		$fields->add($field);
+		
+		$field = $modules->get("InputfieldText");
+		$field->name = "fadeInImageduration";
+		$field->label = "Image FadeIn Speed";
+		$field->value = $data['fadeInImageduration']; 
+		$field->description = "Speed of image fadeIn effect, in milliseconds";
+		$fields->add($field);
+		
+		$field = $modules->get("InputfieldText");
+		$field->name = "fadeOutImageduration";
+		$field->label = "Image FadeOut Speed";
+		$field->value = $data['fadeOutImageduration']; 
+		$field->description = "Speed of image fadeOut effect, in milliseconds";
+		$fields->add($field);
+		
+		$field = $modules->get("InputfieldText");
+		$field->name = "prefix";
+		$field->label = "Counter Prefix";
+		$field->value = $data['prefix']; 
+		$field->description = "Sets the counter prefix; default = \"Image\"";
+		$fields->add($field);
+		
+		$field = $modules->get("InputfieldText");
+		$field->name = "separator";
+		$field->label = "Counter Separator";
+		$field->value = $data['separator']; 
+		$field->description = "Sets the counter separator; default = \"/\"";
+		$fields->add($field);
+
+		return $fields;
 	}
 
 }

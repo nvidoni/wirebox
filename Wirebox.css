@@ -1,4 +1,4 @@
-body{
+body {
 	margin: 0;
 	padding: 0;
 }
@@ -7,21 +7,21 @@ body{
 	position: fixed;
 	top: 0;
 	left: 0;
-	margin :0;
+	margin: 0;
 	padding: 0;
 	width: 100%;
 	height: 100%;
-	background: #fff;
+	background: #000;
 	z-index: 1000;
 }
 #wireboxContent {
 	display: none;
 	position: fixed;
+	width: 800px;
+	height: 600px;
 	top: 50%;
 	left: 50%;
 	margin: -300px 0 0 -400px;
-	width: 800px;
-	height: 600px;
 	z-index: 1001;
 }
 #wireboxLeft {
@@ -29,30 +29,80 @@ body{
 	background-image: url(images/left.png);
 	background-position: 12%;
 	left: -14%;
+	-moz-opacity: 0.70;
+	opacity: 0.70;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha"(Opacity=70);
+}
+#wireboxLeft:hover {
+	-moz-opacity: 1;
+	opacity: 1;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha"(Opacity=1);
 }
 #wireboxRight {
 	float: right;
 	background-image: url(images/right.png);
 	background-position: 88%;
 	left: 14%;
+	-moz-opacity: 0.70;
+	opacity: 0.70;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha"(Opacity=70);
+}
+#wireboxRight:hover {
+	-moz-opacity: 1;
+	opacity: 1;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha"(Opacity=1);
 }
 .wireboxArrows {
 	display: none;
 	position: relative;
 	top: -100%;
-	margin: -30px 0 0 0;
-	width: 49%;
+	margin: -40px 0 0 0;
 	height: 100%;
-	cursor:pointer;
+	width: 49%;
 	background-repeat: no-repeat;
+	cursor: pointer;
 }
 #wireboxContainer {
-	position: relative;
 	width: 800px;
 	height: 600px;
-	text-align: center;
+	text-align:center;
 }
-#wireboxLoading {
+#wireboxCounter {
+	display: none;
+	margin: 5px 0 0 0;
+	height: 30px;
+	font: 12px Arial, Helvetica, sans-serif;
+	text-align: right;
+	color: #b6b6b6;
+}
+#wireboxTitle {
+	display: none;
+	position: absolute;
+	top: -30px;
+	left: 0;
+	font: bold 12px Arial, Helvetica, sans-serif;
+	color: #fff;
+}
+#wireboxClose {
+	display: none;
+	position: absolute;
+	top: -30px;
+	right: 0;
+	width: 11px;
+	height: 25px;
+	background: url(images/close.png) no-repeat;
+	cursor: pointer;
+	z-index: 1002;
+	-moz-opacity: 0.70;
+	opacity: 0.70;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha"(Opacity=70);
+}
+#wireboxClose:hover {
+	-moz-opacity: 1;
+	opacity: 1;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha"(Opacity=1);
+}
+#WireboxLoading {
 	display: none;
 	position: absolute;
 	left: 50%;
@@ -64,45 +114,10 @@ body{
 	cursor: pointer;
 	z-index: 1002;
 }
-#wirboxImage {
+#wireboxImage {
 	display: none;
 	position: relative;
 	width: 100%;
 	height: 100%;
-	margin:-5px 0 0 0;
-}
-#wireboxDescription {
-	position: relative;
-	margin: 10px 0 0 0;
-	padding: 0;
-	width: 100%;
-	height: 26px;
-	font: 12px Arial, Helvetica, sans-serif;
-	color: #fff;
-	overflow: hidden;
-	visibility: hidden;
-	clear: both;
-}
-#wireboxTitle {
-	float: left;
-}
-#wireboxCounter {
-	float: right;
-}
-#wireboxCounter a {
-	color: #fff;
-}
-#wireboxCounter a:hover {
-	color: #ccc;
-}
-#wireboxClose {
-	display: none;
-	position: absolute;
-	top: -26px;
-	right: 0;
-	width: 11px;
-	height: 11px;
-	background: url(images/close.png) no-repeat;
-	cursor: pointer;
-	z-index: 1002;
+	margin: -5px 0 0 0;
 }
