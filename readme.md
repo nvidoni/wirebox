@@ -1,6 +1,6 @@
 # jQuery Wirebox / ProcessWire Module
 
-Responsive lightbox for image galleries (Fancybox alternative)
+Responsive lightbox for image galleries in admin interface (Fancybox alternative)
 
 ![Wirebox window in action](https://raw.github.com/nvidoni/wirebox/master/screenshot.jpg)
 
