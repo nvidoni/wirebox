@@ -12,7 +12,7 @@ Responsive lightbox for image galleries in admin interface (Fancybox alternative
 
 ## How to use
 
-- Wirebox module automatically replaces Fancybox module for images / image galleries.
+- Wirebox module automatically replaces Fancybox module for images / image galleries in admin interface (not intended for frontend usage).
 
 ## Options
 
